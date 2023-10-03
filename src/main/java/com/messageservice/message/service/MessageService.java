@@ -31,7 +31,17 @@ private MessageRepository messageRepository;
     public Message getMessage(Long id){
         Message message = messageRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("There is no message with the given ID "+ id));
         return message;
-
     }
+
+   public Message updateMessage(Long id, Message message){
+        Message messageFromDatabase = messageRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(String.format("There is no message with the given id %d",id)));
+            messageFromDatabase.setSubject(message.getSubject());
+            messageFromDatabase.setBody(message.getBody());
+            messageFromDatabase.setEmail(message.getEmail());
+            messageFromDatabase.setPhoneNumber(message.getPhoneNumber());
+            messageFromDatabase.setTimestamp(message.getTimestamp());
+            messageRepository.save(messageFromDatabase);
+            return messageFromDatabase;
+   }
 
 }

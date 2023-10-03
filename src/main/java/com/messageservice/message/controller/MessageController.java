@@ -44,5 +44,9 @@ public class MessageController {
         return ResponseEntity.ok(message);
     }
 
+    @PutMapping("/messages/{id}")
+    private ResponseEntity<Message> updateMessage(@PathVariable Long id,  @Valid @RequestBody Message message){
+     return new ResponseEntity<>(messageService.updateMessage(id, message),HttpStatus.OK);
+    }
 
 }
